@@ -43,20 +43,39 @@ togglePersonHandler=()=>{
     showPerson:!doesShow
   });
 }
-  render() {
+
+deletepersonhandler=(personIndex)=>{
+  const persons=this.state.person;
+  persons.splice(personIndex,1);
+  this.setState({
+    person:persons
+  })
+}
+
+render() {
 
 let person=null;
 
 if(this.state.showPerson===true){
   person=(
+
+   
     <div>
-    <Person name={this.state.person[0].name} age={this.state.person[0].age} />
-    <Person changed={this.nameChangeHandler }
-    name={this.state.person[1].name}  age={this.state.person[1].age} >My hobbies</Person>
+       {this.state.person.map((per,index)=>{
+         return <Person 
+         click={()=>this.deletepersonhandler(index)} 
+         name={per.name} 
+         age={per.age}
+         changed={this.nameChangeHandler }></Person>
+       })}
+    {/* <Person name={this.state.person[0].name} age={this.state.person[0].age} />
+    <Person 
+    name={this.state.person[1].name}  age={this.state.person[1].age} >My hobbies</Person> */}
     </div>
   )
 }
     return (
+
       <div className="App">
       <h1>Hi i am kaana</h1>
       <button onClick={this.togglePersonHandler}>switch name</button>
